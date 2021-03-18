@@ -6,6 +6,8 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.BlockingDeque;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -29,7 +31,7 @@ public class Consumer implements Runnable {
             ObjectURL url;
             try {
                 url = (ObjectURL)(deque[id].takeFirst());
-                listLinks(url);
+                consumerJob(url);
             } catch (InterruptedException | IOException e) {
                 e.printStackTrace();
             }
@@ -37,7 +39,7 @@ public class Consumer implements Runnable {
             while(!deque[id].isEmpty()){
                 url = (ObjectURL) (deque[id].poll());
                 try {
-                    listLinks(url);
+                    consumerJob(url);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -46,8 +48,9 @@ public class Consumer implements Runnable {
             for(int i=0; i < Main.CONSUMER_COUNT;i++)
             {
                 if(i!=id) {
-                    if(deque[i].peekLast()!=null){           // Da li je ovo problem?
-                        deque[id].add(deque[i].pollLast());
+                    Object notMyUrl = deque[i].pollLast();
+                    if(notMyUrl!=null){           // Da li je ovo problem?
+                        deque[id].add(notMyUrl);
                         break;
                     }
                 }
@@ -55,7 +58,7 @@ public class Consumer implements Runnable {
         }
     }
 
-    private void listLinks(ObjectURL objectURL) throws IOException {
+    private void consumerJob(ObjectURL objectURL) throws IOException {
         Document doc = Jsoup.connect(objectURL.getValue()).get();
         System.out.println(objectURL.getValue() + "  Nit "+id);
         if(objectURL.getFlag())
@@ -66,16 +69,22 @@ public class Consumer implements Runnable {
                 deque[id].add(new ObjectURL(link.attr("abs:href"),false));
             }
         }
-//        Elements p = doc.getElementsByTag("p");
-//        for (Element e: p)
-//            System.out.println(e.text());
-        map.put(objectURL.getValue(),0);
+        Elements p = doc.getElementsByTag("p");
+        int totalWords = 1;
+        Character[] array = {' ','\t','\n','.',';',':','!','?',','};
+        List<Character> list = Arrays.asList(array);
+        for (Element e: p)
+        {
+            char TWord_ch;
+            for(int i = 0; i < e.text().length(); i++)
+            {
+                TWord_ch = e.text().charAt(i);
+                if(list.contains(TWord_ch)) {
+                    totalWords++;
+                }
+            }
+        }
+        map.put(objectURL.getValue(),totalWords);
     }
-
-    //private void wordCount
-
-
-
-
 }
 
