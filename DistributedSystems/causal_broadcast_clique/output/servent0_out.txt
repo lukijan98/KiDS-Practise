@@ -1,0 +1,20 @@
+17:51:10 - Starting servent [0|localhost|1100]
+17:51:10 - My info: [0|localhost|1100]
+17:51:10 - Neighbors:
+17:51:10 - 1 2 3 4 
+17:51:10 - Pausing for 1000 ms
+17:51:12 - Sending message [0|0|a|CAUSAL_BROADCAST|1]
+17:51:13 - Sending message [0|1|a|CAUSAL_BROADCAST|2]
+17:51:13 - Got message [1|0|b|CAUSAL_BROADCAST|0]
+17:51:13 - Committing [1|0|b|CAUSAL_BROADCAST|0]
+17:51:14 - Sending message [0|2|a|CAUSAL_BROADCAST|3]
+17:51:14 - Got message [2|0|c|CAUSAL_BROADCAST|0]
+17:51:14 - Committing [2|0|c|CAUSAL_BROADCAST|0]
+17:51:14 - Sending message [0|3|a|CAUSAL_BROADCAST|4]
+17:51:14 - Committing [0|4|a|CAUSAL_BROADCAST|0]
+17:51:14 - Pausing for 9000 ms
+17:51:23 - Current causal messages:
+17:51:23 - Message 0: b from 1
+17:51:23 - Message 1: c from 2
+17:51:23 - Message 2: a from 0
+17:51:23 - Stopping...

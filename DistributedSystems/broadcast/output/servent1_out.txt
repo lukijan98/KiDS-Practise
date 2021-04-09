@@ -1,0 +1,15 @@
+17:26:56 - Starting servent [1|localhost|1200]
+17:26:56 - My info: [1|localhost|1200]
+17:26:56 - Neighbors:
+17:26:56 - 0 3 
+17:26:56 - Pausing for 2000 ms
+17:26:57 - Got a from [0|localhost|1100] broadcast by [0|localhost|1100]
+17:26:57 - Rebroadcasting... 1
+17:27:00 - Got a from [3|localhost|1400] broadcast by [0|localhost|1100]
+17:27:00 - Already had this. No rebroadcast.
+17:27:00 - Pausing for 10000 ms
+17:27:00 - Got b from [0|localhost|1100] broadcast by [1|localhost|1200]
+17:27:00 - Got own message back. No rebroadcast.
+17:27:01 - Got b from [3|localhost|1400] broadcast by [1|localhost|1200]
+17:27:01 - Got own message back. No rebroadcast.
+17:27:10 - Stopping...
